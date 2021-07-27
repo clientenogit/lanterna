@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(e){this.triggerEvents=e,this.eventOptions={passive:!0},this.userEventListener=this.triggerListener.bind(this),this.delayedScripts={normal:[],async:[],defer:[]},this.allJQueries=[]}_addUserInteractionListener(e){this.triggerEvents.forEach((t=>window.addEventListener(t,e.userEventListener,e.eventOptions)))}_removeUserInteractionListener(e){this.triggerEvents.forEach((t=>window.removeEventListener(t,e.userEventListener,e.eventOptions)))}triggerListener(){this._removeUserInteractionListener(this),this._loadEverythingNow()}async _loadEverythingNow(){this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async),await this._triggerDOMContentLoaded(),await this._triggerWindowLoad(),window.dispatchEvent(new Event("rocket-allScriptsLoaded"))}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((e=>{e.hasAttribute("src")?e.hasAttribute("async")&&!1!==e.async?this.delayedScripts.async.push(e):e.hasAttribute("defer")&&!1!==e.defer||"module"===e.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(e):this.delayedScripts.normal.push(e):this.delayedScripts.normal.push(e)}))}async _transformScript(e){return await this._requestAnimFrame(),new Promise((t=>{const n=document.createElement("script");let i;[...e.attributes].forEach((e=>{let t=e.nodeName;"type"!==t&&("data-rocket-type"===t&&(t="type",i=e.nodeValue),n.setAttribute(t,e.nodeValue))})),e.hasAttribute("src")&&this._isValidScriptType(i)?(n.addEventListener("load",t),n.addEventListener("error",t)):(n.text=e.text,t()),e.parentNode.replaceChild(n,e)}))}_isValidScriptType(e){return!e||""===e||"string"==typeof e&&["text/javascript","text/x-javascript","text/ecmascript","text/jscript","application/javascript","application/x-javascript","application/ecmascript","application/jscript","module"].includes(e.toLowerCase())}async _loadScriptsFromList(e){const t=e.shift();return t?(await this._transformScript(t),this._loadScriptsFromList(e)):Promise.resolve()}_preloadAllScripts(){var e=document.createDocumentFragment();[...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async].forEach((t=>{const n=t.getAttribute("src");if(n){const t=document.createElement("link");t.href=n,t.rel="preload",t.as="script",e.appendChild(t)}})),document.head.appendChild(e)}_delayEventListeners(){let e={};function t(t,n){!function(t){function n(n){return e[t].eventsToRewrite.indexOf(n)>=0?"rocket-"+n:n}e[t]||(e[t]={originalFunctions:{add:t.addEventListener,remove:t.removeEventListener},eventsToRewrite:[]},t.addEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.add.apply(t,arguments)},t.removeEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.remove.apply(t,arguments)})}(t),e[t].eventsToRewrite.push(n)}function n(e,t){const n=e[t];Object.defineProperty(e,t,{get:n||function(){},set:n=>{e["rocket"+t]=n}})}t(document,"DOMContentLoaded"),t(window,"DOMContentLoaded"),t(window,"load"),t(window,"pageshow"),t(document,"readystatechange"),n(document,"onreadystatechange"),n(window,"onload"),n(window,"onpageshow")}_delayJQueryReady(e){let t=window.jQuery;Object.defineProperty(window,"jQuery",{get:()=>t,set(n){if(n&&n.fn&&!e.allJQueries.includes(n)){n.fn.ready=n.fn.init.prototype.ready=function(t){e.domReadyFired?t.bind(document)(n):document.addEventListener("rocket-DOMContentLoaded",(()=>t.bind(document)(n)))};const t=n.fn.on;n.fn.on=n.fn.init.prototype.on=function(){if(this[0]===window){function e(e){return e.split(" ").map((e=>"load"===e||0===e.indexOf("load.")?"rocket-jquery-load":e)).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=e(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach((t=>{delete Object.assign(arguments[0],{[e(t)]:arguments[0][t]})[t]}))}return t.apply(this,arguments),this},e.allJQueries.push(n)}t=n}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._requestAnimFrame(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-load")),await this._requestAnimFrame(),window.rocketonload&&window.rocketonload(),await this._requestAnimFrame(),this.allJQueries.forEach((e=>e(window).trigger("rocket-jquery-load"))),window.dispatchEvent(new Event("rocket-pageshow")),await this._requestAnimFrame(),window.rocketonpageshow&&window.rocketonpageshow()}_handleDocumentWrite(){const e=new Map;document.write=document.writeln=function(t){const n=document.currentScript,i=document.createRange(),r=n.parentElement;let a=e.get(n);void 0===a&&(a=n.nextSibling,e.set(n,a));const o=document.createDocumentFragment();i.setStart(o,0),o.appendChild(i.createContextualFragment(t)),r.insertBefore(o,a)}}async _requestAnimFrame(){return new Promise((e=>requestAnimationFrame(e)))}static run(){const e=new RocketLazyLoadScripts(["keydown","mouseover","touchmove","touchstart","touchend","touchcancel","touchforcechange","wheel"]);e._addUserInteractionListener(e)}}RocketLazyLoadScripts.run();
+</script>
+	<meta charset="UTF-8">
+		<title>SmartLight &#8211; SmartLight</title><link rel="stylesheet" href="https://www.smartlightbrpro.com/wp-content/cache/min/1/323b64ac302b718b5700cb917df81a9d.css" media="all" data-minify="1" />
+<meta name='robots' content='max-image-preview:large' />
+<link href='https://fonts.gstatic.com' crossorigin rel='preconnect' />
+<link rel="alternate" type="application/rss+xml" title="SmartLight &raquo; Feed" href="https://www.smartlightbrpro.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="SmartLight &raquo; Feed de comentários" href="https://www.smartlightbrpro.com/comments/feed/" />
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	
+
+
+
+
+
+<style id='elementor-frontend-inline-css' type='text/css'>
+@font-face{font-family:eicons;src:url(https://www.smartlightbrpro.com/wp-content/plugins/elementor/assets/lib/eicons/fonts/eicons.eot?5.10.0);src:url(https://www.smartlightbrpro.com/wp-content/plugins/elementor/assets/lib/eicons/fonts/eicons.eot?5.10.0#iefix) format("embedded-opentype"),url(https://www.smartlightbrpro.com/wp-content/plugins/elementor/assets/lib/eicons/fonts/eicons.woff2?5.10.0) format("woff2"),url(https://www.smartlightbrpro.com/wp-content/plugins/elementor/assets/lib/eicons/fonts/eicons.woff?5.10.0) format("woff"),url(https://www.smartlightbrpro.com/wp-content/plugins/elementor/assets/lib/eicons/fonts/eicons.ttf?5.10.0) format("truetype"),url(https://www.smartlightbrpro.com/wp-content/plugins/elementor/assets/lib/eicons/fonts/eicons.svg?5.10.0#eicon) format("svg");font-weight:400;font-style:normal}
+.ha-css-transform-yes{-webkit-transition-duration:var(--ha-tfx-transition-duration,.2s);transition-duration:var(--ha-tfx-transition-duration,.2s);-webkit-transition-property:-webkit-transform;transition-property:transform;transition-property:transform,-webkit-transform;-webkit-transform:translate(var(--ha-tfx-translate-x,0),var(--ha-tfx-translate-y,0)) scale(var(--ha-tfx-scale-x,1),var(--ha-tfx-scale-y,1)) skew(var(--ha-tfx-skew-x,0),var(--ha-tfx-skew-y,0)) rotateX(var(--ha-tfx-rotate-x,0)) rotateY(var(--ha-tfx-rotate-y,0)) rotateZ(var(--ha-tfx-rotate-z,0));transform:translate(var(--ha-tfx-translate-x,0),var(--ha-tfx-translate-y,0)) scale(var(--ha-tfx-scale-x,1),var(--ha-tfx-scale-y,1)) skew(var(--ha-tfx-skew-x,0),var(--ha-tfx-skew-y,0)) rotateX(var(--ha-tfx-rotate-x,0)) rotateY(var(--ha-tfx-rotate-y,0)) rotateZ(var(--ha-tfx-rotate-z,0))}.ha-css-transform-yes:hover{-webkit-transform:translate(var(--ha-tfx-translate-x-hover,var(--ha-tfx-translate-x,0)),var(--ha-tfx-translate-y-hover,var(--ha-tfx-translate-y,0))) scale(var(--ha-tfx-scale-x-hover,var(--ha-tfx-scale-x,1)),var(--ha-tfx-scale-y-hover,var(--ha-tfx-scale-y,1))) skew(var(--ha-tfx-skew-x-hover,var(--ha-tfx-skew-x,0)),var(--ha-tfx-skew-y-hover,var(--ha-tfx-skew-y,0))) rotateX(var(--ha-tfx-rotate-x-hover,var(--ha-tfx-rotate-x,0))) rotateY(var(--ha-tfx-rotate-y-hover,var(--ha-tfx-rotate-y,0))) rotateZ(var(--ha-tfx-rotate-z-hover,var(--ha-tfx-rotate-z,0)));transform:translate(var(--ha-tfx-translate-x-hover,var(--ha-tfx-translate-x,0)),var(--ha-tfx-translate-y-hover,var(--ha-tfx-translate-y,0))) scale(var(--ha-tfx-scale-x-hover,var(--ha-tfx-scale-x,1)),var(--ha-tfx-scale-y-hover,var(--ha-tfx-scale-y,1))) skew(var(--ha-tfx-skew-x-hover,var(--ha-tfx-skew-x,0)),var(--ha-tfx-skew-y-hover,var(--ha-tfx-skew-y,0))) rotateX(var(--ha-tfx-rotate-x-hover,var(--ha-tfx-rotate-x,0))) rotateY(var(--ha-tfx-rotate-y-hover,var(--ha-tfx-rotate-y,0))) rotateZ(var(--ha-tfx-rotate-z-hover,var(--ha-tfx-rotate-z,0)))}.happy-addon>.elementor-widget-container{word-wrap:break-word;overflow-wrap:break-word;box-sizing:border-box}.happy-addon>.elementor-widget-container *{box-sizing:border-box}.happy-addon p:empty{display:none}.happy-addon .elementor-inline-editing{min-height:auto!important}.happy-addon-pro img{max-width:100%;height:auto;object-fit:cover}.ha-screen-reader-text{position:absolute;overflow:hidden;clip:rect(1px,1px,1px,1px);margin:-1px;padding:0;width:1px;height:1px;border:0;word-wrap:normal!important;-webkit-clip-path:inset(50%);clip-path:inset(50%)}.ha-has-bg-overlay>.elementor-widget-container{position:relative;z-index:1}.ha-has-bg-overlay>.elementor-widget-container:before{position:absolute;top:0;left:0;z-index:-1;width:100%;height:100%;content:""}.ha-popup--is-enabled .ha-js-popup,.ha-popup--is-enabled .ha-js-popup img{cursor:-webkit-zoom-in!important;cursor:zoom-in!important}.mfp-wrap .mfp-arrow,.mfp-wrap .mfp-close{background-color:transparent}.mfp-wrap .mfp-arrow:focus,.mfp-wrap .mfp-close:focus{outline-width:thin}
+</style>
+
+
+
+
+
+
+
+
+<style id='rocket-lazyload-inline-css' type='text/css'>
+.rll-youtube-player{position:relative;padding-bottom:56.23%;height:0;overflow:hidden;max-width:100%;}.rll-youtube-player iframe{position:absolute;top:0;left:0;width:100%;height:100%;z-index:100;background:0 0}.rll-youtube-player img{bottom:0;display:block;left:0;margin:auto;max-width:100%;width:100%;position:absolute;right:0;top:0;border:none;height:auto;cursor:pointer;-webkit-transition:.4s all;-moz-transition:.4s all;transition:.4s all}.rll-youtube-player img:hover{-webkit-filter:brightness(75%)}.rll-youtube-player .play{height:72px;width:72px;left:50%;top:50%;margin-left:-36px;margin-top:-36px;position:absolute;background:url(https://www.smartlightbrpro.com/wp-content/plugins/wp-rocket/assets/img/youtube.png) no-repeat;cursor:pointer}
+</style>
+<link rel='stylesheet' id='google-fonts-1-css'  href='https://fonts.googleapis.com/css?family=Roboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto+Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CProsto+One%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CPoppins%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRusso+One%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&#038;display=swap&#038;ver=5.8' type='text/css' media='all' />
+
+
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.smartlightbrpro.com/wp-content/plugins/elementor/assets/lib/font-awesome/js/v4-shims.min.js?ver=3.2.4' id='font-awesome-4-shim-js'></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.smartlightbrpro.com/wp-includes/js/jquery/jquery.min.js?ver=3.6.0' id='jquery-core-js'></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.smartlightbrpro.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2' id='jquery-migrate-js'></script>
+<link rel="https://api.w.org/" href="https://www.smartlightbrpro.com/wp-json/" /><link rel="alternate" type="application/json" href="https://www.smartlightbrpro.com/wp-json/wp/v2/pages/6" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.smartlightbrpro.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.smartlightbrpro.com/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 5.8" />
+<link rel="canonical" href="https://www.smartlightbrpro.com/" />
+<link rel='shortlink' href='https://www.smartlightbrpro.com/' />
+<noscript><style id="rocket-lazyload-nojs-css">.rll-youtube-player, [data-lazy-src]{display:none !important;}</style></noscript>	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /></head>
+<body class="home page-template page-template-elementor_canvas page page-id-6 elementor-default elementor-template-canvas elementor-kit-8 elementor-page elementor-page-6">
+			<div data-elementor-type="wp-page" data-elementor-id="6" class="elementor elementor-6" data-elementor-settings="[]">
+							<div class="elementor-section-wrap">
+							<section class="elementor-section elementor-top-section elementor-element elementor-element-4afec2b elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="4afec2b" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;_ha_eqh_enable&quot;:false}">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-0181d73" data-id="0181d73" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-b96f68b elementor-widget elementor-widget-heading" data-id="b96f68b" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">APROVEITE O FRETE GRÁTIS PARA TODO O BRASIL!</h2>		</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-7626b6c elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="7626b6c" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;_ha_eqh_enable&quot;:false}">
+							<div class="elementor-background-overlay"></div>
+							<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-5a65133" data-id="5a65133" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-e96912c elementor-widget elementor-widget-menu-anchor" data-id="e96912c" data-element_type="widget" data-widget_type="menu-anchor.default">
+				<div class="elementor-widget-container">
+					<div id="inicio" class="elementor-menu-anchor"></div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-dbe81db elementor-widget elementor-widget-image" data-id="dbe81db" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="800" height="178" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20800%20178'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/SF4400-BRANCO-PNG.png 900w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/SF4400-BRANCO-PNG-300x67.png 300w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/SF4400-BRANCO-PNG-768x171.png 768w" data-lazy-sizes="(max-width: 800px) 100vw, 800px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/SF4400-BRANCO-PNG.png" /><noscript><img width="800" height="178" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/SF4400-BRANCO-PNG.png" class="attachment-large size-large" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/SF4400-BRANCO-PNG.png 900w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/SF4400-BRANCO-PNG-300x67.png 300w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/SF4400-BRANCO-PNG-768x171.png 768w" sizes="(max-width: 800px) 100vw, 800px" /></noscript>															</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-80d36d9" data-id="80d36d9" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-a801bb6 elementor-nav-menu__align-right elementor-nav-menu--stretch elementor-nav-menu--indicator-classic elementor-nav-menu--dropdown-tablet elementor-nav-menu__text-align-aside elementor-nav-menu--toggle elementor-nav-menu--burger elementor-widget elementor-widget-nav-menu" data-id="a801bb6" data-element_type="widget" data-settings="{&quot;full_width&quot;:&quot;stretch&quot;,&quot;layout&quot;:&quot;horizontal&quot;,&quot;toggle&quot;:&quot;burger&quot;}" data-widget_type="nav-menu.default">
+				<div class="elementor-widget-container">
+						<nav role="navigation" class="elementor-nav-menu--main elementor-nav-menu__container elementor-nav-menu--layout-horizontal e--pointer-underline e--animation-fade"><ul id="menu-1-a801bb6" class="elementor-nav-menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-33"><a href="#inicio" class="elementor-item elementor-item-anchor">INÍCIO</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-34"><a href="#sobre" class="elementor-item elementor-item-anchor">SOBRE O SF4400</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-35"><a href="#depoimentos" class="elementor-item elementor-item-anchor">DEPOIMENTOS</a></li>
+</ul></nav>
+					<div class="elementor-menu-toggle" role="button" tabindex="0" aria-label="Menu Toggle" aria-expanded="false">
+			<i class="eicon-menu-bar" aria-hidden="true"></i>
+			<span class="elementor-screen-only">Menu</span>
+		</div>
+			<nav class="elementor-nav-menu--dropdown elementor-nav-menu__container" role="navigation" aria-hidden="true"><ul id="menu-2-a801bb6" class="elementor-nav-menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-33"><a href="#inicio" class="elementor-item elementor-item-anchor">INÍCIO</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-34"><a href="#sobre" class="elementor-item elementor-item-anchor">SOBRE O SF4400</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-35"><a href="#depoimentos" class="elementor-item elementor-item-anchor">DEPOIMENTOS</a></li>
+</ul></nav>
+				</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-fd8d5f3" data-id="fd8d5f3" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-5c43e47 elementor-align-center elementor-hidden-phone elementor-widget elementor-widget-button" data-id="5c43e47" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a href="#" class="elementor-button-link elementor-button elementor-size-lg elementor-animation-shrink" role="button">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">PEÇA O SEU AGORA!</span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-e2fa9cd elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="e2fa9cd" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;_ha_eqh_enable&quot;:false}">
+							<div class="elementor-background-overlay"></div>
+							<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-8daf652" data-id="8daf652" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<section class="elementor-section elementor-inner-section elementor-element elementor-element-53a7238 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="53a7238" data-element_type="section" data-settings="{&quot;_ha_eqh_enable&quot;:false}">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-c9a2e13" data-id="c9a2e13" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-0db63e0 elementor-widget elementor-widget-heading" data-id="0db63e0" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">SF4400<span style="color: #b12525">PRO</span> LANTERNA</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-18ab103 elementor-aspect-ratio-169 elementor-widget elementor-widget-video" data-id="18ab103" data-element_type="widget" data-settings="{&quot;youtube_url&quot;:&quot;https:\/\/www.youtube.com\/watch?v=6_hpNGmRVtQ&quot;,&quot;video_type&quot;:&quot;youtube&quot;,&quot;aspect_ratio&quot;:&quot;169&quot;}" data-widget_type="video.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-wrapper elementor-fit-aspect-ratio elementor-open-inline">
+			<div class="elementor-video"></div>		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-ad88760 elementor-hidden-desktop elementor-widget elementor-widget-image" data-id="ad88760" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="480" height="270" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20480%20270'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/giphy-flashlight-1.gif" /><noscript><img width="480" height="270" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/giphy-flashlight-1.gif" class="attachment-large size-large" alt="" /></noscript>															</div>
+				</div>
+				<div class="elementor-element elementor-element-547b8bd elementor-widget elementor-widget-heading" data-id="547b8bd" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Conheça a lanterna tática mais brilhante, durável e indestrutível de todos os tempos!</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-8a647ad elementor-widget elementor-widget-spacer" data-id="8a647ad" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-inner-section elementor-element elementor-element-be140ff elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="be140ff" data-element_type="section" data-settings="{&quot;_ha_eqh_enable&quot;:false}">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-3878121" data-id="3878121" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-6b84ba2 elementor-widget elementor-widget-menu-anchor" data-id="6b84ba2" data-element_type="widget" data-widget_type="menu-anchor.default">
+				<div class="elementor-widget-container">
+					<div id="sobre" class="elementor-menu-anchor"></div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-d9e10d0 elementor-hidden-phone elementor-widget elementor-widget-image" data-id="d9e10d0" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="480" height="270" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20480%20270'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/giphy-flashlight-1.gif" /><noscript><img width="480" height="270" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/giphy-flashlight-1.gif" class="attachment-large size-large" alt="" /></noscript>															</div>
+				</div>
+				<div class="elementor-element elementor-element-69ec640 elementor-align-center elementor-hidden-phone elementor-widget elementor-widget-button" data-id="69ec640" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a href="#comprar" class="elementor-button-link elementor-button elementor-size-lg elementor-animation-shrink" role="button">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">PEÇA A SUA AGORA!</span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-3736e76" data-id="3736e76" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-29ae086 elementor-hidden-phone elementor-widget elementor-widget-image" data-id="29ae086" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="200" height="1000" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20200%201000'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/flashlight-1.png 200w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/flashlight-1-60x300.png 60w" data-lazy-sizes="(max-width: 200px) 100vw, 200px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/flashlight-1.png" /><noscript><img width="200" height="1000" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/flashlight-1.png" class="attachment-large size-large" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/flashlight-1.png 200w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/flashlight-1-60x300.png 60w" sizes="(max-width: 200px) 100vw, 200px" /></noscript>															</div>
+				</div>
+				<div class="elementor-element elementor-element-423e1dc elementor-hidden-desktop elementor-widget elementor-widget-image" data-id="423e1dc" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="800" height="370" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20800%20370'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-deitada-1024x474.png 1024w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-deitada-300x139.png 300w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-deitada-768x356.png 768w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-deitada.png 1080w" data-lazy-sizes="(max-width: 800px) 100vw, 800px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-deitada-1024x474.png" /><noscript><img width="800" height="370" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-deitada-1024x474.png" class="attachment-large size-large" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-deitada-1024x474.png 1024w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-deitada-300x139.png 300w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-deitada-768x356.png 768w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-deitada.png 1080w" sizes="(max-width: 800px) 100vw, 800px" /></noscript>															</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-d109a05" data-id="d109a05" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-a202cfa elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list" data-id="a202cfa" data-element_type="widget" data-widget_type="icon-list.default">
+				<div class="elementor-widget-container">
+					<ul class="elementor-icon-list-items">
+							<li class="elementor-icon-list-item">
+											<span class="elementor-icon-list-icon">
+							<i aria-hidden="true" class="fas fa-check-circle"></i>						</span>
+										<span class="elementor-icon-list-text">30x mais brilhante e forte do que uma lanterna normal</span>
+									</li>
+								<li class="elementor-icon-list-item">
+											<span class="elementor-icon-list-icon">
+							<i aria-hidden="true" class="fas fa-check-circle"></i>						</span>
+										<span class="elementor-icon-list-text">Bateria regarregáveis</span>
+									</li>
+								<li class="elementor-icon-list-item">
+											<span class="elementor-icon-list-icon">
+							<i aria-hidden="true" class="fas fa-check-circle"></i>						</span>
+										<span class="elementor-icon-list-text">Corpo altamente resistente e indestrutível</span>
+									</li>
+								<li class="elementor-icon-list-item">
+											<span class="elementor-icon-list-icon">
+							<i aria-hidden="true" class="fas fa-check-circle"></i>						</span>
+										<span class="elementor-icon-list-text">IP65 à prova d'água</span>
+									</li>
+								<li class="elementor-icon-list-item">
+											<span class="elementor-icon-list-icon">
+							<i aria-hidden="true" class="fas fa-check-circle"></i>						</span>
+										<span class="elementor-icon-list-text">Zoom ajustável</span>
+									</li>
+								<li class="elementor-icon-list-item">
+											<span class="elementor-icon-list-icon">
+							<i aria-hidden="true" class="fas fa-check-circle"></i>						</span>
+										<span class="elementor-icon-list-text">5 modos de luz ajustáveis ​​para diferentes fins de uso</span>
+									</li>
+						</ul>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-965c26b elementor-align-center elementor-hidden-desktop elementor-widget elementor-widget-button" data-id="965c26b" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a href="#comprar" class="elementor-button-link elementor-button elementor-size-lg elementor-animation-shrink" role="button">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">PEÇA A SUA AGORA!</span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-c52407d elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="c52407d" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;_ha_eqh_enable&quot;:false}">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-f67ccd7" data-id="f67ccd7" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-ad71257 elementor-widget elementor-widget-spacer" data-id="ad71257" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-8b7bc52 elementor-widget elementor-widget-heading" data-id="8b7bc52" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">SF4400<span style="color: #b12525">PRO</span> </h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-432a1c7 elementor-widget elementor-widget-heading" data-id="432a1c7" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Fabricado em <b>alumínio anodizado de grau aeronáutico</b> (militar), o SF400 pro é <b>resistente o suficiente para sobreviver nos ambientes mais adversos</b>. A lente resistente ao calor canaliza a luz intensa para um amplo holofote ou holofote. e a vida útil esperada de <b>20.000 horas</b>, garantirá que esta seja uma lanterna na qual você sempre pode confiar.</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-994e618 elementor-widget elementor-widget-heading" data-id="994e618" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">SF4400 Pro é <b>incrivelmente brilhante</b> devido à sua avançada tecnologia CREED LED. Também com excelente design de dissipação de calor e <b>bateria de longa duração</b>. você não precisa se preocupar com o longo tempo de uso.</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-09dd762 elementor-widget elementor-widget-image" data-id="09dd762" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="800" height="800" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20800%20800'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/FLASHLIGH-MODOS-E-DURA-1024x1024.png 1024w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/FLASHLIGH-MODOS-E-DURA-300x300.png 300w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/FLASHLIGH-MODOS-E-DURA-150x150.png 150w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/FLASHLIGH-MODOS-E-DURA-768x768.png 768w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/FLASHLIGH-MODOS-E-DURA.png 1080w" data-lazy-sizes="(max-width: 800px) 100vw, 800px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/FLASHLIGH-MODOS-E-DURA-1024x1024.png" /><noscript><img width="800" height="800" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/FLASHLIGH-MODOS-E-DURA-1024x1024.png" class="attachment-large size-large" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/FLASHLIGH-MODOS-E-DURA-1024x1024.png 1024w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/FLASHLIGH-MODOS-E-DURA-300x300.png 300w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/FLASHLIGH-MODOS-E-DURA-150x150.png 150w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/FLASHLIGH-MODOS-E-DURA-768x768.png 768w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/FLASHLIGH-MODOS-E-DURA.png 1080w" sizes="(max-width: 800px) 100vw, 800px" /></noscript>															</div>
+				</div>
+				<div class="elementor-element elementor-element-0c204ab elementor-widget elementor-widget-spacer" data-id="0c204ab" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-37fb5b3" data-id="37fb5b3" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-e4ca70e elementor-widget elementor-widget-image" data-id="e4ca70e" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="800" height="800" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20800%20800'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/HTB1UTszlTZmx1VjSZFGq6yx2XXaM-min.png 1001w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/HTB1UTszlTZmx1VjSZFGq6yx2XXaM-min-300x300.png 300w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/HTB1UTszlTZmx1VjSZFGq6yx2XXaM-min-150x150.png 150w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/HTB1UTszlTZmx1VjSZFGq6yx2XXaM-min-768x768.png 768w" data-lazy-sizes="(max-width: 800px) 100vw, 800px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/HTB1UTszlTZmx1VjSZFGq6yx2XXaM-min.png" /><noscript><img width="800" height="800" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/HTB1UTszlTZmx1VjSZFGq6yx2XXaM-min.png" class="attachment-large size-large" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/HTB1UTszlTZmx1VjSZFGq6yx2XXaM-min.png 1001w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/HTB1UTszlTZmx1VjSZFGq6yx2XXaM-min-300x300.png 300w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/HTB1UTszlTZmx1VjSZFGq6yx2XXaM-min-150x150.png 150w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/HTB1UTszlTZmx1VjSZFGq6yx2XXaM-min-768x768.png 768w" sizes="(max-width: 800px) 100vw, 800px" /></noscript>															</div>
+				</div>
+				<div class="elementor-element elementor-element-f74e55f elementor-widget elementor-widget-image" data-id="f74e55f" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="800" height="800" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20800%20800'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/flashlight-2-min.png 800w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/flashlight-2-min-300x300.png 300w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/flashlight-2-min-150x150.png 150w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/flashlight-2-min-768x768.png 768w" data-lazy-sizes="(max-width: 800px) 100vw, 800px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/flashlight-2-min.png" /><noscript><img width="800" height="800" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/flashlight-2-min.png" class="attachment-large size-large" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/flashlight-2-min.png 800w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/flashlight-2-min-300x300.png 300w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/flashlight-2-min-150x150.png 150w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/flashlight-2-min-768x768.png 768w" sizes="(max-width: 800px) 100vw, 800px" /></noscript>															</div>
+				</div>
+				<div class="elementor-element elementor-element-b01bbc0 elementor-hidden-desktop elementor-widget elementor-widget-spacer" data-id="b01bbc0" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-43e764f elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="43e764f" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;gradient&quot;,&quot;_ha_eqh_enable&quot;:false}">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-1611bd2" data-id="1611bd2" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-8e7066c elementor-widget elementor-widget-spacer" data-id="8e7066c" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-6fb632c elementor-widget elementor-widget-heading" data-id="6fb632c" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">RECURSOS</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-7e4bae3 elementor-widget elementor-widget-heading" data-id="7e4bae3" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Veja o que torna a SF4400PRO a única lanterna de que você vai precisar!</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-010d612 elementor-widget elementor-widget-image" data-id="010d612" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="500" height="100" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20500%20100'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao.png 500w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao-300x60.png 300w" data-lazy-sizes="(max-width: 500px) 100vw, 500px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao.png" /><noscript><img width="500" height="100" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao.png" class="attachment-large size-large" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao.png 500w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao-300x60.png 300w" sizes="(max-width: 500px) 100vw, 500px" /></noscript>															</div>
+				</div>
+				<section class="elementor-section elementor-inner-section elementor-element elementor-element-7e3aff2 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="7e3aff2" data-element_type="section" data-settings="{&quot;_ha_eqh_enable&quot;:false}">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-d9bd3e4" data-id="d9bd3e4" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-80a3d94 elementor-position-left elementor-vertical-align-top elementor-widget elementor-widget-image-box" data-id="80a3d94" data-element_type="widget" data-widget_type="image-box.default">
+				<div class="elementor-widget-container">
+			<div class="elementor-image-box-wrapper"><figure class="elementor-image-box-img"><img width="242" height="256" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20242%20256'%3E%3C/svg%3E" class="attachment-full size-full" alt="" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_191900_pt.aliexpress.com_.png" /><noscript><img width="242" height="256" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_191900_pt.aliexpress.com_.png" class="attachment-full size-full" alt="" /></noscript></figure><div class="elementor-image-box-content"><h3 class="elementor-image-box-title">TECNOLOGIA AVANÇADA DE LED.</h3><p class="elementor-image-box-description">o LED único mais avançado torna o SF4400 o mais poderoso</p></div></div>		</div>
+				</div>
+				<div class="elementor-element elementor-element-942f392 elementor-position-left elementor-vertical-align-top elementor-widget elementor-widget-image-box" data-id="942f392" data-element_type="widget" data-widget_type="image-box.default">
+				<div class="elementor-widget-container">
+			<div class="elementor-image-box-wrapper"><figure class="elementor-image-box-img"><img width="438" height="407" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20438%20407'%3E%3C/svg%3E" class="attachment-full size-full" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_192002_pt.aliexpress.com_.png 438w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_192002_pt.aliexpress.com_-300x279.png 300w" data-lazy-sizes="(max-width: 438px) 100vw, 438px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_192002_pt.aliexpress.com_.png" /><noscript><img width="438" height="407" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_192002_pt.aliexpress.com_.png" class="attachment-full size-full" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_192002_pt.aliexpress.com_.png 438w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_192002_pt.aliexpress.com_-300x279.png 300w" sizes="(max-width: 438px) 100vw, 438px" /></noscript></figure><div class="elementor-image-box-content"><h3 class="elementor-image-box-title">IP65 À PROVA DE ÁGUA</h3><p class="elementor-image-box-description">Use-o sob quaisquer condições climáticas extremas</p></div></div>		</div>
+				</div>
+				<div class="elementor-element elementor-element-68a4bc5 elementor-position-left elementor-vertical-align-top elementor-widget elementor-widget-image-box" data-id="68a4bc5" data-element_type="widget" data-widget_type="image-box.default">
+				<div class="elementor-widget-container">
+			<div class="elementor-image-box-wrapper"><figure class="elementor-image-box-img"><img width="332" height="288" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20332%20288'%3E%3C/svg%3E" class="attachment-full size-full" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_192048_pt.aliexpress.com_.png 332w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_192048_pt.aliexpress.com_-300x260.png 300w" data-lazy-sizes="(max-width: 332px) 100vw, 332px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_192048_pt.aliexpress.com_.png" /><noscript><img width="332" height="288" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_192048_pt.aliexpress.com_.png" class="attachment-full size-full" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_192048_pt.aliexpress.com_.png 332w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_192048_pt.aliexpress.com_-300x260.png 300w" sizes="(max-width: 332px) 100vw, 332px" /></noscript></figure><div class="elementor-image-box-content"><h3 class="elementor-image-box-title"> BRILHO ESTÁVEL</h3><p class="elementor-image-box-description">Graças ao seu led, lente e refletor fornece brilho constante</p></div></div>		</div>
+				</div>
+				<div class="elementor-element elementor-element-6449ae6 elementor-position-left elementor-vertical-align-top elementor-widget elementor-widget-image-box" data-id="6449ae6" data-element_type="widget" data-widget_type="image-box.default">
+				<div class="elementor-widget-container">
+			<div class="elementor-image-box-wrapper"><figure class="elementor-image-box-img"><img width="960" height="640" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20960%20640'%3E%3C/svg%3E" class="attachment-full size-full" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Imagem-Pixabay-16_01_19-Conceitos-de-calor-e-temperatura-Fisica-.png 960w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Imagem-Pixabay-16_01_19-Conceitos-de-calor-e-temperatura-Fisica--300x200.png 300w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Imagem-Pixabay-16_01_19-Conceitos-de-calor-e-temperatura-Fisica--768x512.png 768w" data-lazy-sizes="(max-width: 960px) 100vw, 960px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Imagem-Pixabay-16_01_19-Conceitos-de-calor-e-temperatura-Fisica-.png" /><noscript><img width="960" height="640" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Imagem-Pixabay-16_01_19-Conceitos-de-calor-e-temperatura-Fisica-.png" class="attachment-full size-full" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Imagem-Pixabay-16_01_19-Conceitos-de-calor-e-temperatura-Fisica-.png 960w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Imagem-Pixabay-16_01_19-Conceitos-de-calor-e-temperatura-Fisica--300x200.png 300w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Imagem-Pixabay-16_01_19-Conceitos-de-calor-e-temperatura-Fisica--768x512.png 768w" sizes="(max-width: 960px) 100vw, 960px" /></noscript></figure><div class="elementor-image-box-content"><h3 class="elementor-image-box-title">DISSIPAÇÃO DE CALOR</h3><p class="elementor-image-box-description">Excelente design de proteção contra o calor. Então você não precisa se preocupar com o uso prolongado</p></div></div>		</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-a5f689b" data-id="a5f689b" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-3f42eab elementor-hidden-phone elementor-widget elementor-widget-image" data-id="3f42eab" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="200" height="1000" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20200%201000'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/flashlight-1.png 200w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/flashlight-1-60x300.png 60w" data-lazy-sizes="(max-width: 200px) 100vw, 200px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/flashlight-1.png" /><noscript><img width="200" height="1000" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/flashlight-1.png" class="attachment-large size-large" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/flashlight-1.png 200w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/flashlight-1-60x300.png 60w" sizes="(max-width: 200px) 100vw, 200px" /></noscript>															</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-6d50e99" data-id="6d50e99" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-e872b06 elementor-position-right elementor-vertical-align-top elementor-widget elementor-widget-image-box" data-id="e872b06" data-element_type="widget" data-widget_type="image-box.default">
+				<div class="elementor-widget-container">
+			<div class="elementor-image-box-wrapper"><figure class="elementor-image-box-img"><img width="476" height="480" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20476%20480'%3E%3C/svg%3E" class="attachment-full size-full" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_193851_pt.aliexpress.com_.png 476w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_193851_pt.aliexpress.com_-298x300.png 298w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_193851_pt.aliexpress.com_-150x150.png 150w" data-lazy-sizes="(max-width: 476px) 100vw, 476px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_193851_pt.aliexpress.com_.png" /><noscript><img width="476" height="480" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_193851_pt.aliexpress.com_.png" class="attachment-full size-full" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_193851_pt.aliexpress.com_.png 476w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_193851_pt.aliexpress.com_-298x300.png 298w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_193851_pt.aliexpress.com_-150x150.png 150w" sizes="(max-width: 476px) 100vw, 476px" /></noscript></figure><div class="elementor-image-box-content"><h3 class="elementor-image-box-title">MELHOR APERTO</h3><p class="elementor-image-box-description">Para uma melhor aderência em qualquer condição, nós o tornamos antiderrapante</p></div></div>		</div>
+				</div>
+				<div class="elementor-element elementor-element-c903ac6 elementor-position-right elementor-vertical-align-top elementor-widget elementor-widget-image-box" data-id="c903ac6" data-element_type="widget" data-widget_type="image-box.default">
+				<div class="elementor-widget-container">
+			<div class="elementor-image-box-wrapper"><figure class="elementor-image-box-img"><img width="264" height="226" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20264%20226'%3E%3C/svg%3E" class="attachment-full size-full" alt="" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_193954_pt.aliexpress.com_.png" /><noscript><img width="264" height="226" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_193954_pt.aliexpress.com_.png" class="attachment-full size-full" alt="" /></noscript></figure><div class="elementor-image-box-content"><h3 class="elementor-image-box-title"> INDESTRUTÍVEL</h3><p class="elementor-image-box-description">Fabricado a partir de aeronaves (militares) - alumínio anodizado de grau</p></div></div>		</div>
+				</div>
+				<div class="elementor-element elementor-element-98e91f7 elementor-position-right elementor-vertical-align-top elementor-widget elementor-widget-image-box" data-id="98e91f7" data-element_type="widget" data-widget_type="image-box.default">
+				<div class="elementor-widget-container">
+			<div class="elementor-image-box-wrapper"><figure class="elementor-image-box-img"><img width="198" height="188" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20198%20188'%3E%3C/svg%3E" class="attachment-full size-full" alt="" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_194155_pt.aliexpress.com_.png" /><noscript><img width="198" height="188" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_194155_pt.aliexpress.com_.png" class="attachment-full size-full" alt="" /></noscript></figure><div class="elementor-image-box-content"><h3 class="elementor-image-box-title">CHAVE OPERACIONAL</h3><p class="elementor-image-box-description">OPERACIONAL
+5 modos separados de operação, Baixo | Médio | Alto | Strobe | SOS</p></div></div>		</div>
+				</div>
+				<div class="elementor-element elementor-element-c15cf0d elementor-position-right elementor-vertical-align-top elementor-widget elementor-widget-image-box" data-id="c15cf0d" data-element_type="widget" data-widget_type="image-box.default">
+				<div class="elementor-widget-container">
+			<div class="elementor-image-box-wrapper"><figure class="elementor-image-box-img"><img width="232" height="174" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20232%20174'%3E%3C/svg%3E" class="attachment-full size-full" alt="" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_194247_pt.aliexpress.com_.png" /><noscript><img width="232" height="174" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_194247_pt.aliexpress.com_.png" class="attachment-full size-full" alt="" /></noscript></figure><div class="elementor-image-box-content"><h3 class="elementor-image-box-title">CONTROLE DE ZOOM</h3><p class="elementor-image-box-description">Um recurso de controle de foco intuitivo com uma ação de slide satisfatória</p></div></div>		</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-e31e5f6 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="e31e5f6" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;_ha_eqh_enable&quot;:false}">
+							<div class="elementor-background-overlay"></div>
+							<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-e653d79" data-id="e653d79" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-d053b59 elementor-widget elementor-widget-spacer" data-id="d053b59" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-15620f8 elementor-widget elementor-widget-heading" data-id="15620f8" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">SF4400<span style="color: #b12525">PRO</span> </h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-589472a elementor-widget elementor-widget-heading" data-id="589472a" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Veja o que torna a SF4400PRO a única lanterna de que você vai precisar!</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-0775ae6 elementor-widget elementor-widget-image" data-id="0775ae6" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="500" height="100" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20500%20100'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao.png 500w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao-300x60.png 300w" data-lazy-sizes="(max-width: 500px) 100vw, 500px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao.png" /><noscript><img width="500" height="100" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao.png" class="attachment-large size-large" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao.png 500w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao-300x60.png 300w" sizes="(max-width: 500px) 100vw, 500px" /></noscript>															</div>
+				</div>
+				<div class="elementor-element elementor-element-dc78441 elementor-widget elementor-widget-heading" data-id="dc78441" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default"><b>Versátil, portátil, mas construído para durar</b>. Torne essas condições extremas habitáveis com seu corpo robusto e <b>resistente a impactos </b>e o brilho mais intenso que chega a cerca de <b>1,6 km.</b></h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-f8b7e4c elementor-widget elementor-widget-heading" data-id="f8b7e4c" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Esteja você <b>consertando coisas</b>, <b>acampando ou explorando</b>, isso funciona perfeitamente com seus diferentes modos de luz, <b>mecanismo à prova d'água e design portátil.</b></h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-8d3d5af elementor-widget elementor-widget-image" data-id="8d3d5af" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="480" height="270" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20480%20270'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/giphy-2-light-1.gif" /><noscript><img width="480" height="270" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/giphy-2-light-1.gif" class="attachment-large size-large" alt="" /></noscript>															</div>
+				</div>
+				<div class="elementor-element elementor-element-af7cd23 elementor-hidden-phone elementor-widget elementor-widget-spacer" data-id="af7cd23" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-246b59b elementor-align-center elementor-hidden-desktop elementor-widget elementor-widget-button" data-id="246b59b" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a href="#comprar" class="elementor-button-link elementor-button elementor-size-lg elementor-animation-shrink" role="button">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">PEÇA A SUA AGORA!</span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-e6bff08 elementor-hidden-phone elementor-widget elementor-widget-spacer" data-id="e6bff08" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-7d21a63 elementor-hidden-desktop elementor-widget elementor-widget-spacer" data-id="7d21a63" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-eae2400 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="eae2400" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;_ha_eqh_enable&quot;:false}">
+							<div class="elementor-background-overlay"></div>
+							<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-497d53f" data-id="497d53f" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-cb2c127 elementor-widget elementor-widget-spacer" data-id="cb2c127" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-662ce26 elementor-widget elementor-widget-image" data-id="662ce26" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="524" height="613" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20524%20613'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_204626_www.smartlightus.com-copy-min-min.png 524w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_204626_www.smartlightus.com-copy-min-min-256x300.png 256w" data-lazy-sizes="(max-width: 524px) 100vw, 524px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_204626_www.smartlightus.com-copy-min-min.png" /><noscript><img width="524" height="613" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_204626_www.smartlightus.com-copy-min-min.png" class="attachment-large size-large" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_204626_www.smartlightus.com-copy-min-min.png 524w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_204626_www.smartlightus.com-copy-min-min-256x300.png 256w" sizes="(max-width: 524px) 100vw, 524px" /></noscript>															</div>
+				</div>
+				<div class="elementor-element elementor-element-3ca9827 elementor-hidden-phone elementor-widget elementor-widget-spacer" data-id="3ca9827" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-f6ce26d" data-id="f6ce26d" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-cf09b66 elementor-widget elementor-widget-spacer" data-id="cf09b66" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-d9baf68 elementor-widget elementor-widget-heading" data-id="d9baf68" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">SF4400<span style="color: #b12525">PRO</span> </h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-e52affc elementor-widget elementor-widget-heading" data-id="e52affc" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">MELHOR E MAIS BRILHANTE</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-011188f elementor-widget elementor-widget-image" data-id="011188f" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="500" height="100" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20500%20100'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao.png 500w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao-300x60.png 300w" data-lazy-sizes="(max-width: 500px) 100vw, 500px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao.png" /><noscript><img width="500" height="100" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao.png" class="attachment-large size-large" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao.png 500w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao-300x60.png 300w" sizes="(max-width: 500px) 100vw, 500px" /></noscript>															</div>
+				</div>
+				<div class="elementor-element elementor-element-c581204 elementor-widget elementor-widget-heading" data-id="c581204" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Entre tantas outras opções, não queremos apenas comprar o mais durável e mais brilhante? não é simplesmente um recurso de rastreamento que pode iluminar um espaço para encontrar a lanterna tática certa. Em vez disso, é obter o mais adequado para suas necessidades.</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-5ac1fe2 elementor-widget elementor-widget-heading" data-id="5ac1fe2" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Sobreviva em qualquer condição climática, graças ao seu corpo de nível militar que é anti-pressão, anti-queda, resistente ao impacto até 16 pés e dissipação de calor em várias camadas com total segurança</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-c12cb2a elementor-widget elementor-widget-spacer" data-id="c12cb2a" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-a250fa4 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="a250fa4" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;_ha_eqh_enable&quot;:false}">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-1043118" data-id="1043118" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-14890fb elementor-widget elementor-widget-spacer" data-id="14890fb" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-79f6270 elementor-widget elementor-widget-heading" data-id="79f6270" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">SF4400PRO VS OUTROS</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-cc9902d elementor-widget elementor-widget-heading" data-id="cc9902d" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Veja o que torna a SF4400PRO a única lanterna de que você vai precisar!</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-8ce6af0 elementor-widget elementor-widget-image" data-id="8ce6af0" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="500" height="100" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20500%20100'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao.png 500w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao-300x60.png 300w" data-lazy-sizes="(max-width: 500px) 100vw, 500px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao.png" /><noscript><img width="500" height="100" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao.png" class="attachment-large size-large" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao.png 500w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao-300x60.png 300w" sizes="(max-width: 500px) 100vw, 500px" /></noscript>															</div>
+				</div>
+				<section class="elementor-section elementor-inner-section elementor-element elementor-element-35d8805 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="35d8805" data-element_type="section" data-settings="{&quot;_ha_eqh_enable&quot;:false}">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-49bd673" data-id="49bd673" data-element_type="column">
+			<div class="elementor-widget-wrap">
+									</div>
+		</div>
+				<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-21ddfe6" data-id="21ddfe6" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-461a276 elementor-widget elementor-widget-image" data-id="461a276" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="800" height="1000" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20800%201000'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/comparacao-png-min-819x1024.png 819w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/comparacao-png-min-240x300.png 240w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/comparacao-png-min-768x960.png 768w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/comparacao-png-min.png 1080w" data-lazy-sizes="(max-width: 800px) 100vw, 800px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/comparacao-png-min-819x1024.png" /><noscript><img width="800" height="1000" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/comparacao-png-min-819x1024.png" class="attachment-large size-large" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/comparacao-png-min-819x1024.png 819w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/comparacao-png-min-240x300.png 240w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/comparacao-png-min-768x960.png 768w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/comparacao-png-min.png 1080w" sizes="(max-width: 800px) 100vw, 800px" /></noscript>															</div>
+				</div>
+				<div class="elementor-element elementor-element-3523ad0 elementor-align-center elementor-hidden-desktop elementor-widget elementor-widget-button" data-id="3523ad0" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a href="#comprar" class="elementor-button-link elementor-button elementor-size-lg elementor-animation-shrink" role="button">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">PEÇA O SUA AGORA!</span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-d9ddcb7 elementor-widget elementor-widget-spacer" data-id="d9ddcb7" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-5851024" data-id="5851024" data-element_type="column">
+			<div class="elementor-widget-wrap">
+									</div>
+		</div>
+							</div>
+		</section>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-09aeb64 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="09aeb64" data-element_type="section" data-settings="{&quot;_ha_eqh_enable&quot;:false}">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-e4e15e5" data-id="e4e15e5" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-9025751 elementor-widget elementor-widget-menu-anchor" data-id="9025751" data-element_type="widget" data-widget_type="menu-anchor.default">
+				<div class="elementor-widget-container">
+					<div id="depoimentos" class="elementor-menu-anchor"></div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-fff0acc elementor-widget elementor-widget-heading" data-id="fff0acc" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">O QUE NOSSOS CLIENTES DIZEM;</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-25a6d5b elementor-widget elementor-widget-spacer" data-id="25a6d5b" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-d1c5be0 elementor-arrows-position-inside elementor-pagination-position-outside elementor-widget elementor-widget-image-carousel" data-id="d1c5be0" data-element_type="widget" data-settings="{&quot;navigation&quot;:&quot;both&quot;,&quot;autoplay&quot;:&quot;yes&quot;,&quot;pause_on_hover&quot;:&quot;yes&quot;,&quot;pause_on_interaction&quot;:&quot;yes&quot;,&quot;autoplay_speed&quot;:5000,&quot;infinite&quot;:&quot;yes&quot;,&quot;speed&quot;:500,&quot;image_spacing_custom&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:20,&quot;sizes&quot;:[]}}" data-widget_type="image-carousel.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-image-carousel-wrapper swiper-container" dir="ltr">
+			<div class="elementor-image-carousel swiper-wrapper">
+				<div class="swiper-slide"><figure class="swiper-slide-inner"><img width="768" height="1037" class="swiper-slide-image" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20768%201037'%3E%3C/svg%3E" alt="print 6 lanterna-min-min" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/print-6-lanterna-min-min-768x1037.jpg" /><noscript><img width="768" height="1037" class="swiper-slide-image" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/print-6-lanterna-min-min-768x1037.jpg" alt="print 6 lanterna-min-min" /></noscript><figcaption class="elementor-image-carousel-caption">Muito boa e potente, chegou bem rapido!
+- Elieser S &#x2714;&#xfe0f;</figcaption></figure></div><div class="swiper-slide"><figure class="swiper-slide-inner"><img width="768" height="1037" class="swiper-slide-image" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20768%201037'%3E%3C/svg%3E" alt="print 5 lanterna-min-min" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/print-5-lanterna-min-min-768x1037.jpg" /><noscript><img width="768" height="1037" class="swiper-slide-image" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/print-5-lanterna-min-min-768x1037.jpg" alt="print 5 lanterna-min-min" /></noscript><figcaption class="elementor-image-carousel-caption">veio como descrito, muito rápido no envio. todas estão funcionando perfeitamente. indico, custo benefício muito bom.
+- Gustavo F &#x2714;&#xfe0f;</figcaption></figure></div><div class="swiper-slide"><figure class="swiper-slide-inner"><img width="768" height="1037" class="swiper-slide-image" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20768%201037'%3E%3C/svg%3E" alt="print 4 lanterna-min-min" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/print-4-lanterna-min-min-768x1037.jpg" /><noscript><img width="768" height="1037" class="swiper-slide-image" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/print-4-lanterna-min-min-768x1037.jpg" alt="print 4 lanterna-min-min" /></noscript><figcaption class="elementor-image-carousel-caption">Excelente produto, ótimo brilho, chegou muito rápido, recomendo!. - Mikaelly K &#x2714;&#xfe0f;</figcaption></figure></div><div class="swiper-slide"><figure class="swiper-slide-inner"><img width="768" height="1037" class="swiper-slide-image" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20768%201037'%3E%3C/svg%3E" alt="print-3-lanterna-min-min" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/print-3-lanterna-min-min-768x1037.jpeg" /><noscript><img width="768" height="1037" class="swiper-slide-image" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/print-3-lanterna-min-min-768x1037.jpeg" alt="print-3-lanterna-min-min" /></noscript><figcaption class="elementor-image-carousel-caption">Parece ser uma ótima lanterna, luz forte, foco direcional muito interessante. Menos de 1 mes para o interior de Mato Grosso.
+- Dennis P &#x2714;&#xfe0f;</figcaption></figure></div><div class="swiper-slide"><figure class="swiper-slide-inner"><img width="768" height="1037" class="swiper-slide-image" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20768%201037'%3E%3C/svg%3E" alt="print-2-lanterna-min-min" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/print-2-lanterna-min-min-768x1037.jpeg" /><noscript><img width="768" height="1037" class="swiper-slide-image" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/print-2-lanterna-min-min-768x1037.jpeg" alt="print-2-lanterna-min-min" /></noscript><figcaption class="elementor-image-carousel-caption">goste de + da lanterna, iluminação forte, um pouco pesada, chegou tudo em tacto. ótimo vendedor e entrega super rápida. só teve 1 que já tem 20 dias que não apareceu a localização. recomendo.
+- João P &#x2714;&#xfe0f;</figcaption></figure></div><div class="swiper-slide"><figure class="swiper-slide-inner"><img width="768" height="1037" class="swiper-slide-image" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20768%201037'%3E%3C/svg%3E" alt="print-1-lanterna-min-min" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/print-1-lanterna-min-min-768x1037.jpeg" /><noscript><img width="768" height="1037" class="swiper-slide-image" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/print-1-lanterna-min-min-768x1037.jpeg" alt="print-1-lanterna-min-min" /></noscript><figcaption class="elementor-image-carousel-caption">ótimo produto recomendo a todos cumpre com o que promete .muito resistente. luz de led bem forte adorei recomendo a todos
+- Mateus G &#x2714;&#xfe0f;</figcaption></figure></div>			</div>
+												<div class="swiper-pagination"></div>
+													<div class="elementor-swiper-button elementor-swiper-button-prev">
+						<i class="eicon-chevron-left" aria-hidden="true"></i>
+						<span class="elementor-screen-only">Anterior</span>
+					</div>
+					<div class="elementor-swiper-button elementor-swiper-button-next">
+						<i class="eicon-chevron-right" aria-hidden="true"></i>
+						<span class="elementor-screen-only">Seguinte</span>
+					</div>
+									</div>
+				</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-b12da3f elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="b12da3f" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;_ha_eqh_enable&quot;:false}">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-0cb234c" data-id="0cb234c" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-d05cf4f elementor-widget elementor-widget-spacer" data-id="d05cf4f" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-3a54e4c elementor-widget elementor-widget-heading" data-id="3a54e4c" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">SF4400PRO VS OUTROS</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-8b68e51 elementor-widget elementor-widget-heading" data-id="8b68e51" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">Veja o que torna a SF4400PRO a única lanterna de que você vai precisar!</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-7e953a1 elementor-widget elementor-widget-image" data-id="7e953a1" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="500" height="100" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20500%20100'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao.png 500w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao-300x60.png 300w" data-lazy-sizes="(max-width: 500px) 100vw, 500px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao.png" /><noscript><img width="500" height="100" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao.png" class="attachment-large size-large" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao.png 500w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao-300x60.png 300w" sizes="(max-width: 500px) 100vw, 500px" /></noscript>															</div>
+				</div>
+				<div class="elementor-element elementor-element-6574ccb elementor-widget elementor-widget-image" data-id="6574ccb" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="800" height="377" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20800%20377'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_223907_www.smartlightus.comdada-min-1024x483.png 1024w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_223907_www.smartlightus.comdada-min-300x141.png 300w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_223907_www.smartlightus.comdada-min-768x362.png 768w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_223907_www.smartlightus.comdada-min.png 1169w" data-lazy-sizes="(max-width: 800px) 100vw, 800px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_223907_www.smartlightus.comdada-min-1024x483.png" /><noscript><img width="800" height="377" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_223907_www.smartlightus.comdada-min-1024x483.png" class="attachment-large size-large" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_223907_www.smartlightus.comdada-min-1024x483.png 1024w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_223907_www.smartlightus.comdada-min-300x141.png 300w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_223907_www.smartlightus.comdada-min-768x362.png 768w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_223907_www.smartlightus.comdada-min.png 1169w" sizes="(max-width: 800px) 100vw, 800px" /></noscript>															</div>
+				</div>
+				<div class="elementor-element elementor-element-8032205 elementor-widget elementor-widget-spacer" data-id="8032205" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-ae5999c elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="ae5999c" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;_ha_eqh_enable&quot;:false}">
+							<div class="elementor-background-overlay"></div>
+							<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-4db4f8c" data-id="4db4f8c" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-0f8128c elementor-widget elementor-widget-spacer" data-id="0f8128c" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-e64cc8b elementor-widget elementor-widget-heading" data-id="e64cc8b" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">ESCOLHA SEU KIT</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-8e07eb0 elementor-widget elementor-widget-menu-anchor" data-id="8e07eb0" data-element_type="widget" data-widget_type="menu-anchor.default">
+				<div class="elementor-widget-container">
+					<div id="comprar" class="elementor-menu-anchor"></div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-8e906df elementor-widget elementor-widget-spacer" data-id="8e906df" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-6efb99a elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="6efb99a" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;_ha_eqh_enable&quot;:false}">
+							<div class="elementor-background-overlay"></div>
+							<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-b63279c" data-id="b63279c" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-b4da709 elementor-widget elementor-widget-spacer" data-id="b4da709" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-f39f7e4 elementor-widget elementor-widget-heading" data-id="f39f7e4" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">1 UNIDADE</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-da3d17b elementor-widget elementor-widget-image" data-id="da3d17b" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="333" height="331" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20333%20331'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/dadasasd.png 333w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/dadasasd-300x298.png 300w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/dadasasd-150x150.png 150w" data-lazy-sizes="(max-width: 333px) 100vw, 333px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/dadasasd.png" /><noscript><img width="333" height="331" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/dadasasd.png" class="attachment-large size-large" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/dadasasd.png 333w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/dadasasd-300x298.png 300w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/dadasasd-150x150.png 150w" sizes="(max-width: 333px) 100vw, 333px" /></noscript>															</div>
+				</div>
+				<div class="elementor-element elementor-element-7026db4 elementor-widget elementor-widget-heading" data-id="7026db4" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">DE R$ 197,00</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-28777f6 elementor-widget elementor-widget-heading" data-id="28777f6" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">POR APENAS</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-aee1c0f elementor-widget elementor-widget-heading" data-id="aee1c0f" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">12X DE</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-a3d8c46 elementor-widget elementor-widget-heading" data-id="a3d8c46" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">R$ 9,17</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-ed2ebbc elementor-widget elementor-widget-heading" data-id="ed2ebbc" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">ou R$ 99 à vista!</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-8b2fac9 elementor-align-center elementor-widget elementor-widget-button" data-id="8b2fac9" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a href="https://seguro.smartlightbr.com/r/FF264II5FM" class="elementor-button-link elementor-button elementor-size-lg elementor-animation-shrink" role="button">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">QUERO ESSE!</span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-2cba624 elementor-widget elementor-widget-image" data-id="2cba624" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="413" height="38" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20413%2038'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/compra-segura.png 413w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/compra-segura-300x28.png 300w" data-lazy-sizes="(max-width: 413px) 100vw, 413px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/compra-segura.png" /><noscript><img width="413" height="38" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/compra-segura.png" class="attachment-large size-large" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/compra-segura.png 413w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/compra-segura-300x28.png 300w" sizes="(max-width: 413px) 100vw, 413px" /></noscript>															</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-1cded1e" data-id="1cded1e" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-3cbbf82 elementor-widget elementor-widget-spacer" data-id="3cbbf82" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-56032b3 elementor-widget elementor-widget-heading" data-id="56032b3" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default"><span style="background: #E45415; color:WHITE; padding-left: 10px; padding-right: 10px;"><b>PAGUE 3 LEVE 4</b></span></h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-52d60ee elementor-widget elementor-widget-image" data-id="52d60ee" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="714" height="628" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20714%20628'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_235127_www.smartlightus.com4-gigapixel-scale-2_00x.png 714w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_235127_www.smartlightus.com4-gigapixel-scale-2_00x-300x264.png 300w" data-lazy-sizes="(max-width: 714px) 100vw, 714px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_235127_www.smartlightus.com4-gigapixel-scale-2_00x.png" /><noscript><img width="714" height="628" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_235127_www.smartlightus.com4-gigapixel-scale-2_00x.png" class="attachment-large size-large" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_235127_www.smartlightus.com4-gigapixel-scale-2_00x.png 714w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/Opera-Instantaneo_2021-06-14_235127_www.smartlightus.com4-gigapixel-scale-2_00x-300x264.png 300w" sizes="(max-width: 714px) 100vw, 714px" /></noscript>															</div>
+				</div>
+				<div class="elementor-element elementor-element-4e17258 elementor-widget elementor-widget-heading" data-id="4e17258" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">DE R$ 788,00</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-74ab6db elementor-widget elementor-widget-heading" data-id="74ab6db" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">POR APENAS</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-f91e5b9 elementor-widget elementor-widget-heading" data-id="f91e5b9" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">12X DE</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-2894c29 elementor-widget elementor-widget-heading" data-id="2894c29" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">R$ 33,40</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-f50a8cd elementor-widget elementor-widget-heading" data-id="f50a8cd" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">ou R$ 397 à vista!</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-b5262f4 elementor-align-center elementor-widget elementor-widget-button" data-id="b5262f4" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a href="https://seguro.smartlightbr.com/r/AAX031VVIM" class="elementor-button-link elementor-button elementor-size-lg elementor-animation-shrink" role="button">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">QUERO ESSE!</span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-1bdcd75 elementor-widget elementor-widget-image" data-id="1bdcd75" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="413" height="38" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20413%2038'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/compra-segura.png 413w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/compra-segura-300x28.png 300w" data-lazy-sizes="(max-width: 413px) 100vw, 413px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/compra-segura.png" /><noscript><img width="413" height="38" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/compra-segura.png" class="attachment-large size-large" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/compra-segura.png 413w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/compra-segura-300x28.png 300w" sizes="(max-width: 413px) 100vw, 413px" /></noscript>															</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-8d13ffe" data-id="8d13ffe" data-element_type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-d782aae elementor-widget elementor-widget-spacer" data-id="d782aae" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-03855f8 elementor-widget elementor-widget-heading" data-id="03855f8" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">2 UNIDADES</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-d4a7fb1 elementor-widget elementor-widget-image" data-id="d4a7fb1" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="540" height="740" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20540%20740'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/dasdsasdadsa-min.png 540w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/dasdsasdadsa-min-219x300.png 219w" data-lazy-sizes="(max-width: 540px) 100vw, 540px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/dasdsasdadsa-min.png" /><noscript><img width="540" height="740" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/dasdsasdadsa-min.png" class="attachment-large size-large" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/dasdsasdadsa-min.png 540w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/dasdsasdadsa-min-219x300.png 219w" sizes="(max-width: 540px) 100vw, 540px" /></noscript>															</div>
+				</div>
+				<div class="elementor-element elementor-element-0813c2a elementor-widget elementor-widget-heading" data-id="0813c2a" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">DE R$ 394,00</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-9e234cd elementor-widget elementor-widget-heading" data-id="9e234cd" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">POR APENAS</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-94245ac elementor-widget elementor-widget-heading" data-id="94245ac" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">12X DE</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-02dc27d elementor-widget elementor-widget-heading" data-id="02dc27d" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">R$ 16,80</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-7e6712c elementor-widget elementor-widget-heading" data-id="7e6712c" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">ou R$ 199,90 à vista!</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-0bcb1d7 elementor-align-center elementor-widget elementor-widget-button" data-id="0bcb1d7" data-element_type="widget" data-widget_type="button.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-button-wrapper">
+			<a href="https://seguro.smartlightbr.com/r/ON7A8TRWCO" class="elementor-button-link elementor-button elementor-size-lg elementor-animation-shrink" role="button">
+						<span class="elementor-button-content-wrapper">
+						<span class="elementor-button-text">QUERO ESSE!</span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-8608900 elementor-widget elementor-widget-image" data-id="8608900" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="413" height="38" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20413%2038'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/compra-segura.png 413w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/compra-segura-300x28.png 300w" data-lazy-sizes="(max-width: 413px) 100vw, 413px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/compra-segura.png" /><noscript><img width="413" height="38" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/compra-segura.png" class="attachment-large size-large" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/compra-segura.png 413w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/compra-segura-300x28.png 300w" sizes="(max-width: 413px) 100vw, 413px" /></noscript>															</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-ac25be1 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="ac25be1" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;_ha_eqh_enable&quot;:false}">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-25f3e12" data-id="25f3e12" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-bb1bae4 elementor-widget elementor-widget-spacer" data-id="bb1bae4" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-31e37b7 elementor-widget elementor-widget-heading" data-id="31e37b7" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">PERGUNTAS FREQUENTES</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-27cd3c7 elementor-widget elementor-widget-image" data-id="27cd3c7" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="500" height="100" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20500%20100'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao.png 500w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao-300x60.png 300w" data-lazy-sizes="(max-width: 500px) 100vw, 500px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao.png" /><noscript><img width="500" height="100" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao.png" class="attachment-large size-large" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao.png 500w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/lanterna-divisao-300x60.png 300w" sizes="(max-width: 500px) 100vw, 500px" /></noscript>															</div>
+				</div>
+				<div class="elementor-element elementor-element-076e5de elementor-widget elementor-widget-toggle" data-id="076e5de" data-element_type="widget" data-widget_type="toggle.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-toggle" role="tablist">
+							<div class="elementor-toggle-item">
+					<div id="elementor-tab-title-7791" class="elementor-tab-title" data-tab="1" role="tab" aria-controls="elementor-tab-content-7791" aria-expanded="false">
+												<span class="elementor-toggle-icon elementor-toggle-icon-left" aria-hidden="true">
+															<span class="elementor-toggle-icon-closed"><i class="fas fa-caret-right"></i></span>
+								<span class="elementor-toggle-icon-opened"><i class="elementor-toggle-icon-opened fas fa-caret-up"></i></span>
+													</span>
+												<a href="" class="elementor-toggle-title"> Possui recursos de zoom?</a>
+					</div>
+					<div id="elementor-tab-content-7791" class="elementor-tab-content elementor-clearfix" data-tab="1" role="tabpanel" aria-labelledby="elementor-tab-title-7791"><pre id="tw-target-text" class="tw-data-text tw-text-large XcVN5d tw-ta" dir="ltr" data-placeholder="Tradução"><span class="Y2IQFc" lang="pt">Sim! tem zoom para iluminar alcances curtos e longos.</span></pre></div>
+				</div>
+							<div class="elementor-toggle-item">
+					<div id="elementor-tab-title-7792" class="elementor-tab-title" data-tab="2" role="tab" aria-controls="elementor-tab-content-7792" aria-expanded="false">
+												<span class="elementor-toggle-icon elementor-toggle-icon-left" aria-hidden="true">
+															<span class="elementor-toggle-icon-closed"><i class="fas fa-caret-right"></i></span>
+								<span class="elementor-toggle-icon-opened"><i class="elementor-toggle-icon-opened fas fa-caret-up"></i></span>
+													</span>
+												<a href="" class="elementor-toggle-title">Diz usb recarregável. tenho que tirar as baterias para carregá-las?</a>
+					</div>
+					<div id="elementor-tab-content-7792" class="elementor-tab-content elementor-clearfix" data-tab="2" role="tabpanel" aria-labelledby="elementor-tab-title-7792"><pre id="tw-target-text" class="tw-data-text tw-text-large XcVN5d tw-ta" dir="ltr" data-placeholder="Tradução"><span class="Y2IQFc" lang="pt">Não! Você não precisa tirar as baterias para carregá-lo. você pode deixá-los dentro de sua luz inteligente e pode carregar sua lanterna com o carregador usb que acompanha seu pedido. Se você receber baterias extras, você também pode colocá-las em um carregador independente.</span></pre></div>
+				</div>
+							<div class="elementor-toggle-item">
+					<div id="elementor-tab-title-7793" class="elementor-tab-title" data-tab="3" role="tab" aria-controls="elementor-tab-content-7793" aria-expanded="false">
+												<span class="elementor-toggle-icon elementor-toggle-icon-left" aria-hidden="true">
+															<span class="elementor-toggle-icon-closed"><i class="fas fa-caret-right"></i></span>
+								<span class="elementor-toggle-icon-opened"><i class="elementor-toggle-icon-opened fas fa-caret-up"></i></span>
+													</span>
+												<a href="" class="elementor-toggle-title">É realmente à prova d'água?</a>
+					</div>
+					<div id="elementor-tab-content-7793" class="elementor-tab-content elementor-clearfix" data-tab="3" role="tabpanel" aria-labelledby="elementor-tab-title-7793"><pre id="tw-target-text" class="tw-data-text tw-text-large XcVN5d tw-ta" dir="ltr" data-placeholder="Tradução"><span class="Y2IQFc" lang="pt">Sim, o SF4400 Pro tem classificação IP65. E pode ser usado mesmo sob chuva forte, neve e condições extremas!</span></pre></div>
+				</div>
+							<div class="elementor-toggle-item">
+					<div id="elementor-tab-title-7794" class="elementor-tab-title" data-tab="4" role="tab" aria-controls="elementor-tab-content-7794" aria-expanded="false">
+												<span class="elementor-toggle-icon elementor-toggle-icon-left" aria-hidden="true">
+															<span class="elementor-toggle-icon-closed"><i class="fas fa-caret-right"></i></span>
+								<span class="elementor-toggle-icon-opened"><i class="elementor-toggle-icon-opened fas fa-caret-up"></i></span>
+													</span>
+												<a href="" class="elementor-toggle-title">Quais métodos de pagamento é aceito?</a>
+					</div>
+					<div id="elementor-tab-content-7794" class="elementor-tab-content elementor-clearfix" data-tab="4" role="tabpanel" aria-labelledby="elementor-tab-title-7794"><p>Você pode realizar o pagamento por cartão de crédito ( que é mais rápido o processo) ou também por boleto bancário, que é reconhecido em 1 a 3 dias úteis!</p></div>
+				</div>
+							<div class="elementor-toggle-item">
+					<div id="elementor-tab-title-7795" class="elementor-tab-title" data-tab="5" role="tab" aria-controls="elementor-tab-content-7795" aria-expanded="false">
+												<span class="elementor-toggle-icon elementor-toggle-icon-left" aria-hidden="true">
+															<span class="elementor-toggle-icon-closed"><i class="fas fa-caret-right"></i></span>
+								<span class="elementor-toggle-icon-opened"><i class="elementor-toggle-icon-opened fas fa-caret-up"></i></span>
+													</span>
+												<a href="" class="elementor-toggle-title">Posso enviar os produtos para um endereço diferente do meu?</a>
+					</div>
+					<div id="elementor-tab-content-7795" class="elementor-tab-content elementor-clearfix" data-tab="5" role="tabpanel" aria-labelledby="elementor-tab-title-7795"><pre id="tw-target-text" class="tw-data-text tw-text-large XcVN5d tw-ta" dir="ltr" data-placeholder="Tradução"><span class="Y2IQFc" lang="pt">Sim, durante o processo de finalização da compra, você pode inserir qualquer endereço de entrega e especificar um endereço de cobrança diferente</span></pre></div>
+				</div>
+								</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-619a735 elementor-widget elementor-widget-spacer" data-id="619a735" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-cd41e5d elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="cd41e5d" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;_ha_eqh_enable&quot;:false}">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-5a48c01" data-id="5a48c01" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-d0b65bb elementor-widget elementor-widget-spacer" data-id="d0b65bb" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-61c5b7b elementor-widget elementor-widget-heading" data-id="61c5b7b" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">SITE SEGURO</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-8566da1 elementor-widget elementor-widget-image" data-id="8566da1" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="160" height="55" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20160%2055'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/site-seguro-160x55-1.png" /><noscript><img width="160" height="55" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/site-seguro-160x55-1.png" class="attachment-large size-large" alt="" /></noscript>															</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-9df3dfc" data-id="9df3dfc" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-5dd5efa elementor-hidden-phone elementor-widget elementor-widget-spacer" data-id="5dd5efa" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-4c25131 elementor-widget elementor-widget-heading" data-id="4c25131" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">PAGAMENTO</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-27c8c26 elementor-widget elementor-widget-image" data-id="27c8c26" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="768" height="101" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20768%20101'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/bandeiras-cartoes-1392x183-1-768x101-1.png 768w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/bandeiras-cartoes-1392x183-1-768x101-1-300x39.png 300w" data-lazy-sizes="(max-width: 768px) 100vw, 768px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/bandeiras-cartoes-1392x183-1-768x101-1.png" /><noscript><img width="768" height="101" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/bandeiras-cartoes-1392x183-1-768x101-1.png" class="attachment-large size-large" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/bandeiras-cartoes-1392x183-1-768x101-1.png 768w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/bandeiras-cartoes-1392x183-1-768x101-1-300x39.png 300w" sizes="(max-width: 768px) 100vw, 768px" /></noscript>															</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-fc0b20b" data-id="fc0b20b" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-bb0476a elementor-hidden-phone elementor-widget elementor-widget-spacer" data-id="bb0476a" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-d6287b2 elementor-widget elementor-widget-heading" data-id="d6287b2" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">AVISO:</h2>		</div>
+				</div>
+				<div class="elementor-element elementor-element-b2d0912 elementor-widget elementor-widget-heading" data-id="b2d0912" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">A venda só pode ser realizada através deste Site Oficial e não nos responsabilizamos por compras realizadas em outros sites.</h2>		</div>
+				</div>
+					</div>
+		</div>
+				<div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-ac8ab86" data-id="ac8ab86" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-1544513 elementor-hidden-phone elementor-widget elementor-widget-spacer" data-id="1544513" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-b5dfbf0 elementor-widget elementor-widget-image" data-id="b5dfbf0" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+															<img width="800" height="178" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20800%20178'%3E%3C/svg%3E" class="attachment-large size-large" alt="" data-lazy-srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/SF4400-BRANCO-PNG.png 900w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/SF4400-BRANCO-PNG-300x67.png 300w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/SF4400-BRANCO-PNG-768x171.png 768w" data-lazy-sizes="(max-width: 800px) 100vw, 800px" data-lazy-src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/SF4400-BRANCO-PNG.png" /><noscript><img width="800" height="178" src="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/SF4400-BRANCO-PNG.png" class="attachment-large size-large" alt="" srcset="https://www.smartlightbrpro.com/wp-content/uploads/2021/06/SF4400-BRANCO-PNG.png 900w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/SF4400-BRANCO-PNG-300x67.png 300w, https://www.smartlightbrpro.com/wp-content/uploads/2021/06/SF4400-BRANCO-PNG-768x171.png 768w" sizes="(max-width: 800px) 100vw, 800px" /></noscript>															</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-3c3445c elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="3c3445c" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;_ha_eqh_enable&quot;:false}">
+						<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-79a59d6" data-id="79a59d6" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+								<div class="elementor-element elementor-element-9ffc85d elementor-widget elementor-widget-spacer" data-id="9ffc85d" data-element_type="widget" data-widget_type="spacer.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-spacer">
+			<div class="elementor-spacer-inner"></div>
+		</div>
+				</div>
+				</div>
+				<div class="elementor-element elementor-element-eb08c81 elementor-widget elementor-widget-heading" data-id="eb08c81" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h2 class="elementor-heading-title elementor-size-default">© Copyright 2021 SF4400 | Todos os direitos reservados</h2>		</div>
+				</div>
+					</div>
+		</div>
+							</div>
+		</section>
+						</div>
+					</div>
+		<script type="rocketlazyloadscript" data-rocket-type='text/javascript' id='rocket-browser-checker-js-after'>
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+</script>
+<script type='text/javascript' id='rocket-preload-links-js-extra'>
+/* <![CDATA[ */
+var RocketPreloadLinksConfig = {"excludeUris":"\/(.+\/)?feed\/?.+\/?|\/(?:.+\/)?embed\/|\/(index\\.php\/)?wp\\-json(\/.*|$)|\/wp-admin\/|\/logout\/|\/wp-login.php","usesTrailingSlash":"1","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|php|pdf|html|htm","siteUrl":"https:\/\/www.smartlightbrpro.com","onHoverDelay":"100","rateThrottle":"3"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' id='rocket-preload-links-js-after'>
+(function() {
+"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+}());
+</script>
+<script type='text/javascript' id='happy-elementor-addons-js-extra'>
+/* <![CDATA[ */
+var HappyLocalize = {"ajax_url":"https:\/\/www.smartlightbrpro.com\/wp-admin\/admin-ajax.php","nonce":"7cf1a9c8c2"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.smartlightbrpro.com/wp-content/plugins/happy-elementor-addons/assets/js/happy-addons.min.js?ver=2.24.1' id='happy-elementor-addons-js'></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.smartlightbrpro.com/wp-content/plugins/elementor-pro/assets/lib/smartmenus/jquery.smartmenus.min.js?ver=1.0.1' id='smartmenus-js'></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.smartlightbrpro.com/wp-content/plugins/elementor-pro/assets/js/webpack-pro.runtime.min.js?ver=3.1.1' id='elementor-pro-webpack-runtime-js'></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.smartlightbrpro.com/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js?ver=3.2.4' id='elementor-webpack-runtime-js'></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.smartlightbrpro.com/wp-content/plugins/elementor/assets/js/frontend-modules.min.js?ver=3.2.4' id='elementor-frontend-modules-js'></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.smartlightbrpro.com/wp-content/plugins/elementor-pro/assets/lib/sticky/jquery.sticky.min.js?ver=3.1.1' id='elementor-sticky-js'></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' id='elementor-pro-frontend-js-before'>
+var ElementorProFrontendConfig = {"ajaxurl":"https:\/\/www.smartlightbrpro.com\/wp-admin\/admin-ajax.php","nonce":"e52ddd5071","urls":{"assets":"https:\/\/www.smartlightbrpro.com\/wp-content\/plugins\/elementor-pro\/assets\/"},"i18n":{"toc_no_headings_found":"No headings were found on this page."},"shareButtonsNetworks":{"facebook":{"title":"Facebook","has_counter":true},"twitter":{"title":"Twitter"},"google":{"title":"Google+","has_counter":true},"linkedin":{"title":"LinkedIn","has_counter":true},"pinterest":{"title":"Pinterest","has_counter":true},"reddit":{"title":"Reddit","has_counter":true},"vk":{"title":"VK","has_counter":true},"odnoklassniki":{"title":"OK","has_counter":true},"tumblr":{"title":"Tumblr"},"digg":{"title":"Digg"},"skype":{"title":"Skype"},"stumbleupon":{"title":"StumbleUpon","has_counter":true},"mix":{"title":"Mix"},"telegram":{"title":"Telegram"},"pocket":{"title":"Pocket","has_counter":true},"xing":{"title":"XING","has_counter":true},"whatsapp":{"title":"WhatsApp"},"email":{"title":"Email"},"print":{"title":"Print"}},"facebook_sdk":{"lang":"pt_PT","app_id":""},"lottie":{"defaultAnimationUrl":"https:\/\/www.smartlightbrpro.com\/wp-content\/plugins\/elementor-pro\/modules\/lottie\/assets\/animations\/default.json"}};
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.smartlightbrpro.com/wp-content/plugins/elementor-pro/assets/js/frontend.min.js?ver=3.1.1' id='elementor-pro-frontend-js'></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.smartlightbrpro.com/wp-content/plugins/elementor/assets/lib/waypoints/waypoints.min.js?ver=4.0.2' id='elementor-waypoints-js'></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.smartlightbrpro.com/wp-includes/js/jquery/ui/core.min.js?ver=1.12.1' id='jquery-ui-core-js'></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.smartlightbrpro.com/wp-content/plugins/elementor/assets/lib/swiper/swiper.min.js?ver=5.3.6' id='swiper-js'></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.smartlightbrpro.com/wp-content/plugins/elementor/assets/lib/share-link/share-link.min.js?ver=3.2.4' id='share-link-js'></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.smartlightbrpro.com/wp-content/plugins/elementor/assets/lib/dialog/dialog.min.js?ver=4.8.1' id='elementor-dialog-js'></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' id='elementor-frontend-js-before'>
+var elementorFrontendConfig = {"environmentMode":{"edit":false,"wpPreview":false,"isScriptDebug":false},"i18n":{"shareOnFacebook":"Share on Facebook","shareOnTwitter":"Share on Twitter","pinIt":"Pin it","download":"Download","downloadImage":"Download image","fullscreen":"Fullscreen","zoom":"Zoom","share":"Share","playVideo":"Reproduzir v\u00eddeo","previous":"Anterior","next":"Seguinte","close":"Fechar"},"is_rtl":false,"breakpoints":{"xs":0,"sm":480,"md":768,"lg":1025,"xl":1440,"xxl":1600},"responsive":{"breakpoints":{"mobile":{"label":"Mobile","value":767,"direction":"max","is_enabled":true},"mobile_extra":{"label":"Mobile Extra","value":880,"direction":"max","is_enabled":false},"tablet":{"label":"Tablet","value":1024,"direction":"max","is_enabled":true},"tablet_extra":{"label":"Tablet Extra","value":1365,"direction":"max","is_enabled":false},"laptop":{"label":"Port\u00e1til","value":1620,"direction":"max","is_enabled":false},"widescreen":{"label":"Widescreen","value":2400,"direction":"min","is_enabled":false}}},"version":"3.2.4","is_static":false,"experimentalFeatures":{"e_dom_optimization":true,"a11y_improvements":true,"landing-pages":true},"urls":{"assets":"https:\/\/www.smartlightbrpro.com\/wp-content\/plugins\/elementor\/assets\/"},"settings":{"page":[],"editorPreferences":[]},"kit":{"active_breakpoints":["viewport_mobile","viewport_tablet"],"global_image_lightbox":"yes","lightbox_enable_counter":"yes","lightbox_enable_fullscreen":"yes","lightbox_enable_zoom":"yes","lightbox_enable_share":"yes","lightbox_title_src":"title","lightbox_description_src":"description"},"post":{"id":6,"title":"SmartLight%20%E2%80%93%20SmartLight","excerpt":"","featuredImage":false}};
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.smartlightbrpro.com/wp-content/plugins/elementor/assets/js/frontend.min.js?ver=3.2.4' id='elementor-frontend-js'></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.smartlightbrpro.com/wp-content/plugins/elementor-pro/assets/js/preloaded-elements-handlers.min.js?ver=3.1.1' id='pro-preloaded-elements-handlers-js'></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.smartlightbrpro.com/wp-content/plugins/elementor/assets/js/preloaded-modules.min.js?ver=3.2.4' id='preloaded-modules-js'></script>
+<script>window.lazyLoadOptions={elements_selector:"img[data-lazy-src],.rocket-lazyload,iframe[data-lazy-src]",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,callback_loaded:function(element){if(element.tagName==="IFRAME"&&element.dataset.rocketLazyload=="fitvidscompatible"){if(element.classList.contains("lazyloaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}};window.addEventListener('LazyLoad::Initialized',function(e){var lazyLoadInstance=e.detail.instance;if(window.MutationObserver){var observer=new MutationObserver(function(mutations){var image_count=0;var iframe_count=0;var rocketlazy_count=0;mutations.forEach(function(mutation){for(i=0;i<mutation.addedNodes.length;i++){if(typeof mutation.addedNodes[i].getElementsByTagName!=='function'){continue}
+if(typeof mutation.addedNodes[i].getElementsByClassName!=='function'){continue}
+images=mutation.addedNodes[i].getElementsByTagName('img');is_image=mutation.addedNodes[i].tagName=="IMG";iframes=mutation.addedNodes[i].getElementsByTagName('iframe');is_iframe=mutation.addedNodes[i].tagName=="IFRAME";rocket_lazy=mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');image_count+=images.length;iframe_count+=iframes.length;rocketlazy_count+=rocket_lazy.length;if(is_image){image_count+=1}
+if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_count>0){lazyLoadInstance.update()}});var b=document.getElementsByTagName("body")[0];var config={childList:!0,subtree:!0};observer.observe(b,config)}},!1)</script><script data-no-minify="1" async src="https://www.smartlightbrpro.com/wp-content/plugins/wp-rocket/assets/js/lazyload/16.1/lazyload.min.js"></script><script>function lazyLoadThumb(e){var t='<img loading="lazy" data-lazy-src="https://i.ytimg.com/vi/ID/hqdefault.jpg" alt="" width="480" height="360"><noscript><img src="https://i.ytimg.com/vi/ID/hqdefault.jpg" alt="" width="480" height="360"></noscript>',a='<div class="play"></div>';return t.replace("ID",e)+a}function lazyLoadYoutubeIframe(){var e=document.createElement("iframe"),t="ID?autoplay=1";t+=0===this.dataset.query.length?'':'&'+this.dataset.query;e.setAttribute("src",t.replace("ID",this.dataset.src)),e.setAttribute("frameborder","0"),e.setAttribute("allowfullscreen","1"),e.setAttribute("allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"),this.parentNode.replaceChild(e,this)}document.addEventListener("DOMContentLoaded",function(){var e,t,a=document.getElementsByClassName("rll-youtube-player");for(t=0;t<a.length;t++)e=document.createElement("div"),e.setAttribute("data-id",a[t].dataset.id),e.setAttribute("data-query", a[t].dataset.query),e.setAttribute("data-src", a[t].dataset.src),e.innerHTML=lazyLoadThumb(a[t].dataset.id),e.onclick=lazyLoadYoutubeIframe,a[t].appendChild(e)});</script>	</body>
+</html>
+
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me - Debug: cached@1627414671 -->
